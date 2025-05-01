@@ -1,2 +1,2 @@
-# Projeto-Individual---FUTURO-NOME
-Projeto sobre a história da natação 
+# Swimlympics
+A história da natação competitiva.
