@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-* {
+body{
   margin: 0;
   padding: 0;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11,10 +11,9 @@
 
 }
 
-
 .container {
   display: flex;
-  width: 100%;
+  width: 80%;
   margin: auto;
 }
 
@@ -45,7 +44,7 @@
   align-items: center;
   justify-content: space-between;
   list-style: none;
-  color: #e3b062;
+  color: goldenrod;
 }
 
 
@@ -91,7 +90,7 @@
 }
 
 .submenu a:hover{
-  background-color: #e3b062;
+  background-color: goldenrod;
 }
 
 /* Mostra o submenu ao passar o mouse em cima da div inteira */
@@ -174,7 +173,13 @@
 
 .noticias-section-main { 
   display: flex;
+  justify-content: center;
   gap: 32px;
+}
+.noticias-section-cards h3{
+  text-align: center;
+  margin-top: 0%;
+  margin-bottom: 0%;
 }
 
 .noticias-section-cards {
@@ -182,13 +187,40 @@
   flex-direction: column;
   justify-content: center;
   padding: 0px 32px;
-  width: 50%;
-  height: 240px;
+  width: 40%;
+  height: 250px;
   background-color: whitesmoke;
   color: goldenrod;
-  gap: 32px;
-  text-align: left;
 }
+.atletas{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.atletas .atletas-mulheres p{
+  text-align: center;
+  font-weight: bold;
+}
+
+.atletas .atletas-homens p{
+  text-align: center;
+  font-weight: bold;
+}
+
+/*INICIO DO RODAPÉ*/
+.footer {
+  height: 150px;
+  color: whitesmoke;
+  display: flex;
+  font-size: 15px;
+  border-top: 2px solid goldenrod;
+}
+
+.footer .container {
+  justify-content: flex-start;
+  text-align: center;
+}
+/*FIM DO RODAPÉ*/
 
 
 
