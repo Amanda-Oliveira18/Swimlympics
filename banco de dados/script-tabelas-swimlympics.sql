@@ -19,7 +19,7 @@ nivel_dificuldade varchar(20) not null
 create table quiz(
 idQuiz int primary key not null auto_increment,
 nivel_dificuldade int not null,
-foreign key (nivel_dificuldade) references nivel_quiz(idNivel)
+foreign key (nivel_dificuldade) references nivel_quiz(idNivel_quiz)
 );
 
 create table resultados_quiz (

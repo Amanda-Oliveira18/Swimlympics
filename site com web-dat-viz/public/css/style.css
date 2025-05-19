@@ -305,17 +305,24 @@ body{
 
 /*INICIO DO RODAPÉ*/
 .footer {
-  height: 150px;
+  height: 120px;
   color: whitesmoke;
-  display: flex;
+  /* display: flex; */
   font-size: 15px;
   border-top: 2px solid goldenrod;
 }
 
-.footer .container {
-  justify-content: flex-start;
+.footer .container{
+  padding-top: 25px;
+  justify-content: center;
   text-align: center;
 }
+
+.conteudo-footer{
+  justify-items: center;
+}
+
+
 /*FIM DO RODAPÉ*/
 
 
