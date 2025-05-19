@@ -20,7 +20,7 @@
     <div class="header">
       <div class="container">
         <ul class="navbar">
-          <a href="home.html">Home</a>
+          <a href="index.html">Home</a>
           <div class="historia-link">
             <li>
               <a href="historia.html">História</a>
@@ -73,13 +73,14 @@
                          Para inserir mais um campo, copie uma das inputs abaixo.
                          Assim que inserir vá para o script abaixo.
                      -->
-          <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
+
           <div class="campo">
             <span>Nome:</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
+          </div>
+          <div class="campo">
+            <span>Usuário:</span>
+            <input id="perfil_usuario_input" type="text" placeholder="Insira aqui o nome desejado" />
           </div>
           <div class="campo">
             <span>E-mail:</span>
@@ -92,6 +93,14 @@
           <div class="campo">
             <span>Confirmação da Senha:</span>
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
+          </div>
+          <div class="campo">
+            <span>Acompanha Natação?</span>
+            <select id="acompanha_natacao_input">
+              <option value="selecionar">Selecione uma resposta</option>
+              <option value="sim">Sim</option>
+              <option value="não">Não</option>
+            </select>
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
@@ -107,8 +116,8 @@
   <!--footer inicio-->
   <div class="footer">
     <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-      <span class="version">v1.0.0</span>
+      <h4></h4>
+
     </div>
   </div>
   <!--footer fim-->
@@ -117,9 +126,7 @@
 </html>
 
 <script>
-
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
+  let usuariosCadastrados = [];
 
   function cadastrar() {
     // aguardar();
@@ -130,9 +137,9 @@
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
+    var perfil_usuarioVar = perfil_usuario_input.value;
+    var acompanha_natacaoVar = acompanha_natacao_input.value;
     var erro = '';
-    var idEmpresaVincular
 
 
     // Verificando se há algum campo em branco
@@ -141,7 +148,7 @@
       emailVar == "" ||
       senhaVar == "" ||
       confirmacaoSenhaVar == "" ||
-      codigoVar == "" 
+      perfil_usuarioVar == "" 
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -154,7 +161,13 @@
       cardErro.style.display = "block";
       mensagem_erro.innerHTML = erro;
       finalizarAguardar();
-    } 
+    }
+    else if(perfil_usuarioVar.length <= 1){
+      erro = 'Nome de perfil muito curto';
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = erro;
+      finalizarAguardar();
+    }  
     else if(emailVar.indexOf("@") < 0 || emailVar.indexOf(".") < 0){
       erro = "Email inválido! O email precisa conter '@' e '.' ex: seunome@suaempresa.com";
       cardErro.style.display = "block";
@@ -172,6 +185,11 @@
       cardErro.style.display = "block";
       mensagem_erro.innerHTML = erro;
       finalizarAguardar();
+    } else if(acompanha_natacaoVar == 'selecionar'){
+      erro = 'Selecione uma opção válida';
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = erro;
+      finalizarAguardar();
     } 
     else {
       setInterval(sumirMensagem, 5000);
@@ -179,15 +197,15 @@
 
     
 
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id
-        console.log("Código de ativação válido.");
+    // Verificando se o nome de usuário é de alguém já cadastrado
+    for (let i = 0; i < usuariosCadastrados.length; i++) {
+      if (usuariosCadastrados[i].perfil_usuario != perfil_usuarioVar) {
+        usuariosCadastrados.push(perfil_usuarioVar);
+        console.log("Nome de usuário válido.");
         break;
       } else {
         cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+        mensagem_erro.innerHTML = "(Esse nome de usuário já existe)";
         finalizarAguardar();
       }
     }
@@ -202,9 +220,10 @@
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
+        perfil_usuarioServer: perfil_usuarioVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        idEmpresaVincularServer: idEmpresaVincular
+        acompanha_natacaoServer: acompanha_natacaoVar
       }),
     })
       .then(function (resposta) {
@@ -234,25 +253,6 @@
     return false;
   }
 
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
 
   function sumirMensagem() {
     cardErro.style.display = "none";

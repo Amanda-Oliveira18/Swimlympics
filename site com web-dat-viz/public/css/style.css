@@ -43,6 +43,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-right: 40px;
   list-style: none;
   color: goldenrod;
 }
@@ -285,7 +286,7 @@ body{
   cursor: pointer;
   position: absolute;
   top: 0;
-  left: 120%;
+  right: 120%;
   width: 300px;
   height: 300px;
   object-fit: cover;
@@ -341,7 +342,7 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  color: whitesmoke;
+  color: goldenrod;
   flex-direction: column;
   height: fit-content;
   padding: 20px 0;
