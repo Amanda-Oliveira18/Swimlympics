@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>Swimlympics | Cadastro</title>
 
   <script src="./js/sessao.js"></script>
 
@@ -20,7 +20,7 @@
     <div class="header">
       <div class="container">
         <ul class="navbar">
-          <a href="#">Home</a>
+          <a href="home.html">Home</a>
           <div class="historia-link">
             <li>
               <a href="historia.html">História</a>
@@ -82,10 +82,6 @@
             <input id="nome_input" type="text" placeholder="Seu nome" />
           </div>
           <div class="campo">
-            <span>CPF:</span>
-            <input id="cpf_input" type="number" placeholder="Digite o CPF sem '.' ou ',' ex: 12345678901" />
-          </div>
-          <div class="campo">
             <span>E-mail:</span>
             <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
           </div>
@@ -135,10 +131,9 @@
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     var codigoVar = codigo_input.value;
-    var cpfVar = Number(cpf_input.value);
     var erro = '';
     var idEmpresaVincular
-    console.log(cpfVar.length)
+
 
     // Verificando se há algum campo em branco
     if (
@@ -146,8 +141,7 @@
       emailVar == "" ||
       senhaVar == "" ||
       confirmacaoSenhaVar == "" ||
-      codigoVar == "" ||
-      cpfVar == ""
+      codigoVar == "" 
     ) {
       cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -175,12 +169,6 @@
     }
     else if(senhaVar != confirmacaoSenhaVar){
       erro = 'As senhas estão diferentes!';
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML = erro;
-      finalizarAguardar();
-    }
-    else if(cpfVar.length != 11){
-      erro = 'O CPF precisa ter 11 números'
       cardErro.style.display = "block";
       mensagem_erro.innerHTML = erro;
       finalizarAguardar();
@@ -216,7 +204,6 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        cpfServer: cpfVar,
         idEmpresaVincularServer: idEmpresaVincular
       }),
     })
