@@ -38,10 +38,10 @@
             </div>
           </div>
           <div class="logo">
-            <a href="./home.html"><img src="./assets/imgs/logo.png" alt=""></a>
+            <a href="index.html"><img src="./assets/imgs/logo.png" alt=""></a>
           </div>
           <li>
-            <a href="">Sobre mim</a>
+            <a href="sobre.html">Sobre mim</a>
           </li>
           <div class="cadastro-login-link">
             <li class="agora">
@@ -103,6 +103,7 @@
             </select>
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
+            <span>Já tem uma conta? <a href="login.html">Entre aqui</a></span>
         </div>
         <div id="div_aguardar" class="loading-div">
           <img src="./assets/circle-loading.gif" id="loading-gif" />
@@ -208,6 +209,7 @@
       } else {
         cardErro.style.display = "block";
         mensagem_erro.innerHTML = "(Esse nome de usuário já existe)";
+        return;
         finalizarAguardar();
       }
     }

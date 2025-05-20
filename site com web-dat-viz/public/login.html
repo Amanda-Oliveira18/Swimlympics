@@ -40,10 +40,10 @@
                     </div>
                 </div>
                 <div class="logo">
-                    <a href="./home.html"><img src="./assets/imgs/logo.png" alt=""></a>
+                    <a href="index.html"><img src="./assets/imgs/logo.png" alt=""></a>
                 </div>
                 <li>
-                    <a href="">Sobre mim</a>
+                    <a href="sobre.html">Sobre mim</a>
                 </li>
                 <div class="cadastro-login-link">
                     <li class="agora">
@@ -68,17 +68,18 @@
         </div>
         <div class="container">
             <div class="card card-login">
-                <h2>Olá de volta!</h2>
+                <h2>Bem-vindo de volta!</h2>
                 <div class="formulario">
                     <div class="campo">
-                        <span>Email:</span>
-                        <input id="email_input" type="text" placeholder="Login">
+                        <span>Usuário</span>
+                        <input id="perfil_usuario_input" type="text" placeholder="Usuário">
                     </div>
                     <div class="campo">
-                        <span>Senha:</span>
+                        <span>Senha</span>
                         <input id="senha_input" type="password" placeholder="******">
                     </div>
                     <button class="botao" onclick="entrar()">Entrar</button>
+                    <span>Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a></span>
                 </div>
 
                 <div id="div_aguardar" class="loading-div">
@@ -108,74 +109,76 @@
 <script>
 
 
-    // function entrar() {
-    //     aguardar();
+    function entrar() {
+        aguardar();
 
-    //     var emailVar = email_input.value;
-    //     var senhaVar = senha_input.value;
+        var perfil_usuarioVar = perfil_usuario_input.value;
+        var senhaVar = senha_input.value;
 
-    //     if (emailVar == "" || senhaVar == "") {
-    //         cardErro.style.display = "block"
-    //         mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-    //         finalizarAguardar();
-    //         return false;
-    //     }
-    //     else {
-    //         setInterval(sumirMensagem, 5000)
-    //     }
+        if (perfil_usuarioVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
 
-    //     console.log("FORM LOGIN: ", emailVar);
-    //     console.log("FORM SENHA: ", senhaVar);
+        console.log("FORM LOGIN: ", perfil_usuarioVar);
+        console.log("FORM SENHA: ", senhaVar);
 
-    //     fetch("/usuarios/autenticar", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             emailServer: emailVar,
-    //             senhaServer: senhaVar
-    //         })
-    //     }).then(function (resposta) {
-    //         console.log("ESTOU NO THEN DO entrar()!")
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                perfil_usuarioServer: perfil_usuarioVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
 
-    //         if (resposta.ok) {
-    //             console.log(resposta);
+            if (resposta.ok) {
+                console.log(resposta);
 
-    //             resposta.json().then(json => {
-    //                 console.log(json);
-    //                 console.log(JSON.stringify(json));
-    //                 sessionStorage.EMAIL_USUARIO = json.email;
-    //                 sessionStorage.NOME_USUARIO = json.nome;
-    //                 sessionStorage.ID_USUARIO = json.id;
-    //                 sessionStorage.CPF_USUARIO = json.cpf;
-    //                 sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.PERFIL_USUARIO = json.perfil_usuario;
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.ACOMPANHA_NATACAO = json.acompanha_natacao;
 
-    //                 setTimeout(function () {
-    //                     window.location = "./dashboard/cards.html";
-    //                 }, 1000); // apenas para exibir o loading
+                    mensagem_erro.innerHTML = "(Email ou senha inválidos)";
 
-    //             });
+                    setTimeout(function () {
+                        window.location = "./dashboard/dashboard.html";
+                    }, 1500); // apenas para exibir o loading
 
-    //         } else {
+                });
 
-    //             console.log("Houve um erro ao tentar realizar o login!");
+            } else {
 
-    //             resposta.text().then(texto => {
-    //                 console.error(texto);
-    //                 finalizarAguardar(texto);
-    //             });
-    //         }
+                console.log("Houve um erro ao tentar realizar o login!");
 
-    //     }).catch(function (erro) {
-    //         console.log(erro);
-    //     })
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
 
-    //     return false;
-    // }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
 
-    // function sumirMensagem() {
-    //     cardErro.style.display = "none"
-    // }
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
 
 </script>
