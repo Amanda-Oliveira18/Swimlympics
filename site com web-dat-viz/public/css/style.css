@@ -558,5 +558,41 @@ input {
   text-align: center;
 }
 
+/*MISSÃO VISÃO E VALORES*/
+
+.social {
+  display: flex;
+}
+
+.social .container {
+  justify-content: center;
+  width: 100%;
+}
+
+.box img {
+  width: 200px;         
+  height: 200px;
+  object-fit: cover;    
+  border-radius: 50%;  
+}
+
+.social .container .boxes {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 30px 0;
+}
+
+.social p {
+  text-align: center;
+  width: 85%;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* FIM SOBRE */
 

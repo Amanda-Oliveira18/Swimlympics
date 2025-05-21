@@ -10,7 +10,7 @@ email varchar(255) not null,
 senha varchar(255) not null,
 acompanha_natacao char(3) not null
 );
-
+select * from usuario;
 create table nivel_quiz (
 idNivel_quiz int primary key not null auto_increment,
 nivel_dificuldade varchar(20) not null
@@ -41,4 +41,4 @@ values ('Fácil'),
        ('Impossível');
 
 
-
+create user 'swimlympics_api'@'%' identified by 'Swimlympics@123';
