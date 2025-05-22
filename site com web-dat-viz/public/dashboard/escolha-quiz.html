@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swimlympics | Dashboards</title>
-
-    
+    <title>Escolha o quiz | Swimlympics</title>
     <link rel="stylesheet" href="./../css/dashboard.css">
     <link rel="stylesheet" href="./../css/style.css" />
     <script src="../js/sessao.js"></script>
@@ -25,11 +20,7 @@
     <!--FONT AWESOME-->
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
-
-<!-- <body onload=" atualizarFeed()"> -->
-
 <body>
-
     <div class="janela">
         <div class="header-left">
           <div class="logo">
@@ -46,17 +37,16 @@
                 </a>
             </div>
 
-            <div class="btn-nav">
-
-                <h3>Seus dados</h3>
-
-            </div>
-
             <div class="btn-nav-white">
-                <a href="escolha-quiz.html">
-                    <h3>Quiz</h3>
+                <a href="dashboard.html">
+                    <h3>Seus dados</h3>
                 </a>
             </div>
+            
+            <div class="btn-nav">
+                <h3>Quiz</h3>
+            </div>
+
 
             <div class="btn-logout" onclick="limparSessao()">
                 <h3>Sair</h3>
@@ -65,18 +55,38 @@
         </div>
 
         <div class="dash">
+            <div class="escolha-de-quiz">
+                <h2>Deseja testar seus conhecimentos? <br>Escolha um quiz:</h2>
+            </div>
+    <div class="quiz-section">
+        <div class="container">
 
+            <div class="quiz-section-main">
+                <div class="quiz-section-cards">
+                    <a href="quiz-facil.html"><h3>Quiz de nível fácil</h3></a>
+                </div>
+                <div class="quiz-section-cards">
+                    <a href="quiz-intermediario.html"><h3>Quiz de nível intermediário</h3></a>
+                </div>
+            </div>
+        </div>
+        <div class="quiz-section-main">
+            <div class="quiz-section-cards">
+                <a href="quiz-dificil.html"><h3>Quiz de nível difícil</h3></a>
+            </div>
+            <div class="quiz-section-cards">
+                <a href="quiz-impossivel.html"><h3>Quiz de nível impossível</h3></a>
+            </div>
         </div>
     </div>
-
+    </div>
+</div>
 
 </body>
-
 </html>
-
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-
+    
     // window.onload = validarSessao;
 
 </script>

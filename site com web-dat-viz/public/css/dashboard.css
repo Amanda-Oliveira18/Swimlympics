@@ -25,6 +25,7 @@ body {
   overflow: auto;
 }
 
+
 .janela {
   display: flex;
   /* width: 100vw; */
@@ -61,10 +62,6 @@ body {
   left: 25%;
   height: 100vh;
   overflow: auto;
-}
-
-.header-left h1 {
-  color: #32b9cd;
 }
 
 .hello {
@@ -124,4 +121,59 @@ body {
   padding: 10px 15px;
   margin-bottom: 100px;
   cursor: pointer;
+}
+
+/*PAGINA DE ESCOLHA DE QUIZ*/
+.dash .escolha-de-quiz{
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.escolha-de-quiz h2{
+  color: ghostwhite;
+  font-size: 40px;
+}
+
+/*ABA DE "NOTÍCIAS"*/
+.quiz-section .container{
+  margin-top: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 32px;
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+.quiz-section-main { 
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+.quiz-section-cards a{
+  color: goldenrod;
+  text-decoration: none;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+.quiz-section-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 60px;
+  padding: 0px 32px;
+  width: 35%;
+  height: 150px;
+  background-color: whitesmoke;
+  border: 3px solid goldenrod;
+}
+
+.quiz-section-cards p{
+  font-size: 17px;
 }

@@ -5,13 +5,15 @@ use swimlympics;
 create table usuario (
 idUsuario int primary key not null auto_increment,
 nome varchar(100) not null,
-perfil_usuario varchar(50) not null,
+perfil_usuario varchar(50) unique not null,
 email varchar(255) not null,
 senha varchar(255) not null,
 acompanha_natacao char(3) not null
 );
+
 select * from usuario;
-create table nivel_quiz (
+
+create table nivel_quiz(
 idNivel_quiz int primary key not null auto_increment,
 nivel_dificuldade varchar(20) not null
 );
@@ -40,5 +42,11 @@ values ('Fácil'),
        ('Difícil'),
        ('Impossível');
 
+
+insert into quiz(nivel_dificuldade)
+values(1), (2), (3), (4);
+
+select concat('Quiz ', q.idQuiz , ' Nível ', nivel.nivel_dificuldade) as 'Quiz'
+from quiz q join nivel_quiz nivel on q.nivel_dificuldade = nivel.idNivel_quiz;
 
 create user 'swimlympics_api'@'%' identified by 'Swimlympics@123';

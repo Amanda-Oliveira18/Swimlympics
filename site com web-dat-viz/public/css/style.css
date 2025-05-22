@@ -154,7 +154,7 @@ body{
 }
 
 .banner .container p{
-  color: whitesmoke;
+  color: ghostwhite;
   font-size: 40px;
   width: 60%;
 }
@@ -170,7 +170,7 @@ body{
 }
 .conteudo h4{
   align-self: center;
-  color: whitesmoke;
+  color: ghostwhite;
 }
 
 .banner .container {
@@ -200,7 +200,7 @@ body{
 }
 
 .titulo-atualizacao p{
-  color: whitesmoke;
+  color: ghostwhite;
   font-size: 30px;
   text-align: center;
 }
@@ -286,11 +286,11 @@ body{
   cursor: pointer;
   position: absolute;
   top: 0;
-  right: 120%;
-  width: 300px;
-  height: 300px;
+  left: 120%;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius:50%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transition: opacity 0.3s ease;
