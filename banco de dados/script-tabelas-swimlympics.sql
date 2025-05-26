@@ -15,13 +15,13 @@ select * from usuario;
 
 create table nivel_quiz(
 idNivel_quiz int primary key not null auto_increment,
-nivel_dificuldade varchar(20) not null
+nivel_dificuldade varchar(20) not null unique
 );
 
 create table quiz(
 idQuiz int primary key not null auto_increment,
-nivel_dificuldade int not null,
-foreign key (nivel_dificuldade) references nivel_quiz(idNivel_quiz)
+nivel_quiz int not null,
+foreign key (nivel_quiz) references nivel_quiz(idNivel_quiz)
 );
 
 create table resultados_quiz (
@@ -43,10 +43,10 @@ values ('Fácil'),
        ('Impossível');
 
 
-insert into quiz(nivel_dificuldade)
+insert into quiz(nivel_quiz)
 values(1), (2), (3), (4);
 
 select concat('Quiz ', q.idQuiz , ' Nível ', nivel.nivel_dificuldade) as 'Quiz'
-from quiz q join nivel_quiz nivel on q.nivel_dificuldade = nivel.idNivel_quiz;
+from quiz q join nivel_quiz nivel on q.nivel_quiz = nivel.idNivel_quiz;
 
-create user 'swimlympics_api'@'%' identified by 'Swimlympics@123';
+-- create user 'swimlympics_api'@'%' identified by 'Swimlympics@123';
