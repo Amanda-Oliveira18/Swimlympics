@@ -7,7 +7,6 @@ body {
   padding: 0;
   font-family: 'Barlow', 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 /* pagina graficos */
 
 .dash-header {
@@ -125,10 +124,10 @@ body {
 
 /*PAGINA DE ESCOLHA DE QUIZ*/
 .dash .escolha-de-quiz{
-  margin-top: 40px;
   display: flex;
   justify-content: center;
   text-align: center;
+  margin-bottom: 0;
 }
 
 .escolha-de-quiz h2{
@@ -138,7 +137,6 @@ body {
 
 /*ABA DE "NOTÍCIAS"*/
 .quiz-section .container{
-  margin-top: 65px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -158,8 +156,6 @@ body {
   text-decoration: none;
   font-size: 30px;
   text-align: center;
-  margin-top: 0%;
-  margin-bottom: 0%;
 }
 
 .quiz-section-cards {
@@ -177,3 +173,97 @@ body {
 .quiz-section-cards p{
   font-size: 17px;
 }
+
+
+
+/* Quiz */
+.dash{
+  display: grid;
+  place-items: center;
+}
+
+.dash a{
+  justify-self: flex-start;
+  row-gap: 0;
+}
+
+.dash a img{
+  margin-left: 20px;
+  width: 60px;
+  height: 60px;
+}
+
+.quiz-section-card {
+  width: 120%;
+  padding: 35px;
+  border-radius: 60px;
+  background-color: goldenrod;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.quiz-section-card h2 {
+  font-size: 28px;
+  color: whitesmoke;
+  margin-bottom: 20px;
+}
+
+.pergunta {
+  margin-bottom: 20px;
+}
+
+.pergunta p {
+  font-size: 18px;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.resposta .alternativa {
+  display: block;
+  font-size: 16px;
+  border-radius: 40px;
+  background-color: whitesmoke;
+  padding: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.resposta input[type="radio"] {
+  margin-right: 10px;
+}
+
+label:has(input[type="radio"]:checked) {
+  background-color: rgb(232, 232, 168);
+}
+
+.button-quiz {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.button-quiz button {
+  display: flex;
+  background-color:transparent;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  font-size: 45px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-quiz.sozinho {
+  justify-content: center;
+}
+
+/* Resultado */
+#resultado {
+  margin-top: 20px;
+  font-size: 18px;
+  color: whitesmoke;
+  font-weight: bold;
+}
+
+/* Fiz quiz */
