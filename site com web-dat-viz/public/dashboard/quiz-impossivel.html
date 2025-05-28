@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Fácil</title>
+    <link rel="stylesheet" href="./../css/dashboard.css" />
+    <link rel="stylesheet" href="./../css/style.css" />
+</head>
+
+<body>
+    <div class="janela">
+        <div class="header-left">
+          <div class="logo">
+            <a href="../index.html"><img src="../assets/imgs/logo.png" alt=""></a>
+          </div>
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="">
+                    <h3>Estátistica dos usuários</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard.html">
+                    <h3>Seus dados</h3>
+                </a>
+            </div>
+            
+            <div class="btn-nav">
+                <h3>Quiz</h3>
+            </div>
+
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+        </div>
+    <div class="dash">
+        <a href="escolha-quiz.html"><img src="../assets/imgs/voltar-quiz.png"></a>
+    <div class="quiz-section">
+        <div class="container">
+            <div id="quiz" class="quiz-section-card">
+                    <h2>Quiz - Nível Fácil</h2>
+                    <div id="quiz_container">
+                        
+                    </div>
+                    <div class="button-quiz" id="button_quiz">
+                    </div>
+                    <p id="resultado"></p>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+<script src="../js/sessao.js"></script>
+
+<script>
+    var fkquizVar = 2
+    // window.onload = validarSessao;
+
+
+    const perguntas = [
+        "A qual país pertence o recorde Olímpico do Revezamento 4x100m livre feminino?",
+        "Quais são as atletas que detêm esse recorde? (Revezamento 4x100m livre feminino)",
+        "Qual regra do nado costas foi implementada em 2023?",
+        "Quantas medalhas o Brasil ganhou no Mundial de Doha, Catar em 2014?",
+        "Qual mulher da natação tem mais medalhas Olímpicas?"
+    ]
+
+    const respostas = [
+        ["", "", "", ""],
+        ["", "", "", ""],
+        ["", "", "", ""],
+        ["", "", "", ""],
+        ["", "", "", ""]
+    ];
+
+    const respostasCorretas = [3, 2, 0, 1, 2]
+
+    const respostasMarcadas = [null, null, null, null, null]
+
+    const respostasMarcadasC = []
+
+    var indice = 0;
+
+    function construirPergunta() {
+
+        if(indice == 0 || indice == 1 || indice == 2){
+        quiz_container.innerHTML = `
+        <div class="pergunta">
+            <p>${perguntas[indice]}</p>
+            <div class="resposta">
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${respostas[indice][0]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${respostas[indice][1]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="2">c) ${respostas[indice][2]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="3">d) ${respostas[indice][3]}</div>
+            </div>
+        </div>`
+        } 
+        else if(indice == 3){
+        quiz_container.innerHTML = `
+        <div class="pergunta">
+            <p>${perguntas[indice]}</p>
+            <div class="resposta">
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${respostas[indice][0]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${respostas[indice][1]}</div>
+            </div>
+        </div>`
+        }
+        else{
+        quiz_container.innerHTML = `
+        <div class="pergunta">
+            <p>${perguntas[indice]}</p>
+            <div class="resposta">
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${respostas[indice][0]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${respostas[indice][1]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="2">c) ${respostas[indice][2]}</div>
+            </div>
+        </div>`
+        }
+
+
+        if (respostasMarcadas[indice] != null) {
+            const input = document.querySelector(`input[name="q${indice}"][value="${respostasMarcadas[indice]}"]`)
+            input.checked = true
+        }
+    }
+
+    function atualizarBotoes() {
+        button_quiz.innerHTML = '';
+        if (indice == 0) {
+            button_quiz.classList.add("sozinho");
+            button_quiz.innerHTML = `
+            <button onclick="proxima()" class="avancar1">→</button>`;
+        } else if (indice < (perguntas.length - 1)) {
+            button_quiz.classList.remove("sozinho");
+            button_quiz.innerHTML = `
+            <button onclick="voltar()">←</button>
+            <button onclick="proxima()">→</button>`;
+        } else {
+            button_quiz.classList.remove("sozinho");
+            button_quiz.innerHTML = `
+            <button onclick="voltar()">←</button>
+            <button onclick="verificar()">Verificar</button>`;
+        }
+    }
+
+    function salvarResposta() {
+        const selecionada = document.querySelector(`input[name="q${indice}"]:checked`);
+        if (selecionada) {
+            const valor = Number(selecionada.value);
+            respostasMarcadas[indice] = valor;
+        }
+    }
+
+    function proxima() {
+        salvarResposta()
+        if (indice < (perguntas.length - 1)) {
+            indice++
+            construirPergunta()
+            atualizarBotoes()
+        }
+    }
+    function voltar() {
+        salvarResposta()
+        if (indice > 0) {
+            indice--
+            construirPergunta()
+            atualizarBotoes()
+        }
+    }
+
+    var tentativaAtual = 1
+
+    function contarTentativas() {
+        var fkusuarioVar = Number(sessionStorage.ID_USUARIO);
+
+        fetch("/quiz/listarTentativas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                fkUsuarioServer: fkusuarioVar,
+                fkQuizServer: fkquizVar
+            }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.length > 0) {
+                    tentativaAtual = data[0].tentativa + 1;
+                }
+                console.log(`Tentativa atual: ${tentativaAtual}`);
+            })
+            .catch(err => {
+                console.error("Erro ao buscar tentativas:", err);
+            });
+    }
+
+    function verificar() {
+        salvarResposta()
+        var fkusuarioVar = Number(sessionStorage.ID_USUARIO);
+        var acertosVar = 0
+
+        const selecionada = document.querySelector(`input[name="q${indice}"]:checked`);
+        if (selecionada) {
+            const valor = Number(selecionada.value);
+            respostasMarcadas[indice] = valor;
+        }
+
+
+        for (let i = 0; i < perguntas.length; i++) {
+            if (respostasMarcadas[i] === respostasCorretas[i]) {
+                respostasMarcadasC.push(1)
+                acertosVar++
+            } else {
+                respostasMarcadasC.push(0)
+            }
+        }
+
+        console.log(respostasMarcadas)
+        console.log(acertosVar)
+        document.getElementById("resultado").innerHTML = `
+        <div style="display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center">
+            <p>Você acertou ${acertosVar} de ${perguntas.length} perguntas.</p> <br>
+            <a href="dashboard.html"><button style="padding-right: 30px">Voltar para a dashboard</button></a>
+        </div>`;
+        fetch("/quiz/cadastrarQuiz", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                tentativaServer: tentativaAtual,
+                fkUsuarioServer: fkusuarioVar,
+                fkQuizServer: fkquizVar,
+                pontuacaoServer: acertosVar
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    cardErro.style.display = "block";
+
+                    mensagem_erro.innerHTML = "Pontuação salva com sucesso...";
+                    // finalizarAguardar();
+                } else {
+                    throw "Houve um erro ao tentar realizar o salvamento!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                // finalizarAguardar();
+            });
+
+        return false;
+    }
+
+    construirPergunta()
+    atualizarBotoes()
+    contarTentativas();
+
+</script>
+
+</html>
