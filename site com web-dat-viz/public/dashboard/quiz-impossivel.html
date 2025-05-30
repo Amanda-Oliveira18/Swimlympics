@@ -42,11 +42,13 @@
             </div>
         </div>
     <div class="dash">
-        <a href="escolha-quiz.html"><img src="../assets/imgs/voltar-quiz.png"></a>
+        <div class="voltar">
+            <a href="escolha-quiz.html">←</a>
+        </div>
     <div class="quiz-section">
         <div class="container">
             <div id="quiz" class="quiz-section-card">
-                    <h2>Quiz - Nível Fácil</h2>
+                    <h2>Quiz - Nível Impossível</h2>
                     <div id="quiz_container">
                         
                     </div>
@@ -70,20 +72,20 @@
     const perguntas = [
         "A qual país pertence o recorde Olímpico do Revezamento 4x100m livre feminino?",
         "Quais são as atletas que detêm esse recorde? (Revezamento 4x100m livre feminino)",
-        "Qual regra do nado costas foi implementada em 2023?",
-        "Quantas medalhas o Brasil ganhou no Mundial de Doha, Catar em 2014?",
+        "Qual regra do nado costas foi implementada pela World Aquatics e comunicada em 2023, referente à chegada da prova?",
+        "Quantas medalhas o Brasil ganhou no Mundial de Piscina Curta em Doha, Catar em 2014?",
         "Qual mulher da natação tem mais medalhas Olímpicas?"
     ]
 
     const respostas = [
-        ["", "", "", ""],
-        ["", "", "", ""],
-        ["", "", "", ""],
-        ["", "", "", ""],
-        ["", "", "", ""]
+        ["Estados Unidos", "França", "Austrália", "Canadá"],
+        ["Mollie O'Callaghan, Shayna Jack, Brianna Throssell, Ariarne Titmus", "Mollie O'Callaghan, Shayna Jack, Meg Harris, Emma McKeon", "Regan Smith, Lilly King, Gretchen Walsh, Torri Huske", "Mollie O'Callaghan, Lani Pallister, Ariarne Titmus, Brianna Throssell"],
+        ["O nadador deve tocar a parede com ambas as mãos simultaneamente, independentemente da posição do corpo", "O nadador é obrigado a emergir totalmente da água antes de tocar a parede na chegada", "O nadador pode estar completamente submerso durante a chegada, desde que a cabeça tenha ultrapassado a marca de 5 metros antes da chegada", " O nadador deve estar com parte do corpo acima da superfície da água no momento exato do toque na parede final"],
+        ["0", "8", "10", "7"],
+        ["Gretchen Walsh", "Katie Ledecky", "Jenny Thompson", "Torri Huske"]
     ];
 
-    const respostasCorretas = [3, 2, 0, 1, 2]
+    const respostasCorretas = [2, 1, 2, 2, 1];
 
     const respostasMarcadas = [null, null, null, null, null]
 
@@ -93,7 +95,6 @@
 
     function construirPergunta() {
 
-        if(indice == 0 || indice == 1 || indice == 2){
         quiz_container.innerHTML = `
         <div class="pergunta">
             <p>${perguntas[indice]}</p>
@@ -104,28 +105,7 @@
                 <div class = "alternativa"><input type="radio" name="q${indice}" value="3">d) ${respostas[indice][3]}</div>
             </div>
         </div>`
-        } 
-        else if(indice == 3){
-        quiz_container.innerHTML = `
-        <div class="pergunta">
-            <p>${perguntas[indice]}</p>
-            <div class="resposta">
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${respostas[indice][0]}</div>
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${respostas[indice][1]}</div>
-            </div>
-        </div>`
-        }
-        else{
-        quiz_container.innerHTML = `
-        <div class="pergunta">
-            <p>${perguntas[indice]}</p>
-            <div class="resposta">
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${respostas[indice][0]}</div>
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${respostas[indice][1]}</div>
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="2">c) ${respostas[indice][2]}</div>
-            </div>
-        </div>`
-        }
+
 
 
         if (respostasMarcadas[indice] != null) {

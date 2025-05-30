@@ -42,7 +42,9 @@
             </div>
         </div>
     <div class="dash">
-        <a href="escolha-quiz.html"><img src="../assets/imgs/voltar-quiz.png"></a>
+        <div class="voltar">
+            <a href="escolha-quiz.html">←</a>
+        </div>
     <div class="quiz-section">
         <div class="container">
             <div id="quiz" class="quiz-section-card">
@@ -63,6 +65,7 @@
 <script src="../js/sessao.js"></script>
 
 <script>
+
     var fkquizVar = 2
     // window.onload = validarSessao;
 
@@ -75,7 +78,7 @@
         "A natação é considerada um esporte individual ou de equipe?"
     ];
 
-    const respostas = [
+    const alternativas = [
         ["1892", "1900", "1912", "1896"],
         ["Submerso, Cachorrinho, Peito e Crawl (Nado Livre)", "Crawl (Nado Livre), Peito e Borboleta", "Crawl (Nado Livre), Costas, Peito e Borboleta", "Crawl (Nado Livre), Cachorrinho, Costas e Peito"],
         ["50 metros", "100 metros", "25 metros", "60 metros"],
@@ -83,9 +86,9 @@
         ["É um esporte individual", "É um esporte coletivo", "Possui tanto provas individuais como coletivas"]
     ]
 
-    const respostasCorretas = [3, 2, 0, 1, 2]
+    const alternativasCorretas = [3, 2, 0, 1, 2]
 
-    const respostasMarcadas = [null, null, null, null, null]
+    const alternativasMarcadas = [null, null, null, null, null]
 
     const respostasMarcadasC = []
 
@@ -98,10 +101,10 @@
         <div class="pergunta">
             <p>${perguntas[indice]}</p>
             <div class="resposta">
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${respostas[indice][0]}</div>
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${respostas[indice][1]}</div>
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="2">c) ${respostas[indice][2]}</div>
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="3">d) ${respostas[indice][3]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${alternativas[indice][0]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${alternativas[indice][1]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="2">c) ${alternativas[indice][2]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="3">d) ${alternativas[indice][3]}</div>
             </div>
         </div>`
         } 
@@ -110,8 +113,8 @@
         <div class="pergunta">
             <p>${perguntas[indice]}</p>
             <div class="resposta">
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${respostas[indice][0]}</div>
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${respostas[indice][1]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${alternativas[indice][0]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${alternativas[indice][1]}</div>
             </div>
         </div>`
         }
@@ -120,16 +123,16 @@
         <div class="pergunta">
             <p>${perguntas[indice]}</p>
             <div class="resposta">
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${respostas[indice][0]}</div>
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${respostas[indice][1]}</div>
-                <div class = "alternativa"><input type="radio" name="q${indice}" value="2">c) ${respostas[indice][2]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="0">a) ${alternativas[indice][0]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="1">b) ${alternativas[indice][1]}</div>
+                <div class = "alternativa"><input type="radio" name="q${indice}" value="2">c) ${alternativas[indice][2]}</div>
             </div>
         </div>`
         }
 
 
-        if (respostasMarcadas[indice] != null) {
-            const input = document.querySelector(`input[name="q${indice}"][value="${respostasMarcadas[indice]}"]`)
+        if (alternativasMarcadas[indice] != null) {
+            const input = document.querySelector(`input[name="q${indice}"][value="${alternativasMarcadas[indice]}"]`)
             input.checked = true
         }
     }
@@ -149,7 +152,7 @@
             button_quiz.classList.remove("sozinho");
             button_quiz.innerHTML = `
             <button onclick="voltar()">←</button>
-            <button onclick="verificar()">Verificar</button>`;
+            <br><button onclick="verificar()">Verificar</button>`;
         }
     }
 
@@ -157,7 +160,7 @@
         const selecionada = document.querySelector(`input[name="q${indice}"]:checked`);
         if (selecionada) {
             const valor = Number(selecionada.value);
-            respostasMarcadas[indice] = valor;
+            alternativasMarcadas[indice] = valor;
         }
     }
 
@@ -213,12 +216,12 @@
         const selecionada = document.querySelector(`input[name="q${indice}"]:checked`);
         if (selecionada) {
             const valor = Number(selecionada.value);
-            respostasMarcadas[indice] = valor;
+            alternativasMarcadas[indice] = valor;
         }
 
 
         for (let i = 0; i < perguntas.length; i++) {
-            if (respostasMarcadas[i] === respostasCorretas[i]) {
+            if (alternativasMarcadas[i] === alternativasCorretas[i]) {
                 respostasMarcadasC.push(1)
                 acertosVar++
             } else {
@@ -226,7 +229,7 @@
             }
         }
 
-        console.log(respostasMarcadas)
+        console.log(alternativasMarcadas)
         console.log(acertosVar)
         document.getElementById("resultado").innerHTML = `
         <div style="display: flex;
