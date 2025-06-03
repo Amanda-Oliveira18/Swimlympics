@@ -165,7 +165,7 @@ body {
 }
 
 /*PAGINA DE ESCOLHA DE QUIZ*/
-.dash .escolha-de-quiz{
+.dash-quiz .escolha-de-quiz{
   display: flex;
   justify-content: center;
   text-align: center;
@@ -177,7 +177,7 @@ body {
   font-size: 40px;
 }
 
-/*ABA DE "NOTÍCIAS"*/
+/*ABA DE "QUIZES"*/
 .quiz-section .container{
   display: flex;
   flex-direction: column;
@@ -219,15 +219,23 @@ body {
 
 
 /* Quiz */
-.dash{
+.dash-quiz{
   display: grid;
   place-items: center;
   align-content: center;
+  width: 80%;
+  position: relative;
+  top: 0;
+  left: 20%;
+  background-image:url(../assets/imgs/imagem-fundo.png);
+  background-size: cover;
+  height: 100vh;
+  overflow: auto;
 }
-.dash .voltar{
+.dash-quiz .voltar{
   justify-self: flex-start;
 }
-.dash .voltar a{
+.dash-quiz .voltar a{
   margin-left: 20px;
   font-size: 70px;
   color: goldenrod;
@@ -285,7 +293,7 @@ body {
 .button-quiz {
   display: flex;
   width: 100%;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .button-quiz button {
@@ -302,7 +310,16 @@ body {
 .button-quiz.sozinho {
   justify-content: center;
 }
-
+.verificar button{
+  /* justify-self: unset; */
+  height: 40px;
+  width: 100px;
+  border: 0;
+  text-decoration: none;
+  border-radius: 30px;
+  background-color: whitesmoke;
+  color: goldenrod;
+}
 /* Resultado */
 #resultado {
   margin-top: 20px;
@@ -312,3 +329,45 @@ body {
 }
 
 /* Fiz quiz */
+
+
+/*PAGINA DE ESTATISTICA DOS USUÁRIOS*/
+.dash .titulo-estatistica{
+  margin-top: 80px;
+  justify-self: center;
+}
+.titulo-estatistica span{
+  font-weight: 800;
+  font-size: 30px;
+  color: whitesmoke;
+}
+.tabela-section .container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 32px;
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+table{
+  background-color: whitesmoke;
+  color: goldenrod;
+  border: 0;
+  border-radius: 10px;
+  margin-top: 55px;
+  justify-self: center;
+  height: 80%;
+  width: 80%;
+  font-size: 22px;
+  border: 2px solid goldenrod;
+}
+
+table th{
+  width: 180px;
+  background-color: goldenrod;
+  color: white;
+  border-bottom: 2px solid black;
+  padding: 5px;
+}
