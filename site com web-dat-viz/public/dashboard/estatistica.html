@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estatísticas</title>
+    <link rel="stylesheet" href="./../css/dashboard.css" />
+    <link rel="stylesheet" href="./../css/style.css" />
+</head>
+
+<body>
+    <div class="janela">
+        <div class="header-left">
+          <div class="logo">
+            <a href="../index.html"><img src="../assets/imgs/logo.png" alt=""></a>
+          </div>
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav">
+                <a href="#">
+                    <h3>Estatística dos usuários</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="dashboard.html">
+                    <h3>Seus dados</h3>
+                </a>
+            </div>
+            
+            <div class="btn-nav-white">
+                <a href="escolha-quiz.html">
+                    <h3>Quiz</h3>
+                </a>
+            </div>
+
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+        </div>
+    <div class="dash">
+        <div class="titulo-estatistica">    
+            <span>Como está o desempenho dos usuários?</span>
+        </div>
+        <div class="tabela-section">
+            <div class="container">
+                <div id="ranking">
+                    <table id="tabelaRanking">
+                        <tr>
+                            <th>Usuário</th>
+                            <th>Acompanha natação</th>
+                            <th>Quizzes respondidos</th>
+                            <th>Pontuação Total</th>
+                        </tr>
+                    </table>
+                </div>
+                <div id="grafico-acompanhamento">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+<script src="../js/sessao.js"></script>
+
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+
+    function preencherTabelaRanking(dados) {
+    const tabela = document.getElementById("tabelaRanking");
+
+    tabela.innerHTML = `
+        <tr>
+            <th>Usuário</th>
+            <th>Acompanha natação</th>
+            <th>Quizzes respondidos</th>
+            <th>Pontuação Total</th>
+        </tr>
+    `;
+
+    dados.forEach(item => {
+        const linha = document.createElement("tr");
+
+        linha.innerHTML = `
+            <td>${item.usuario}</td>
+            <td>${item.acompanha_natacao}</td>
+            <td>${item.quizzesRespondidos}</td>
+            <td>${item.pontuacaoTotal}</td>
+        `;
+
+        tabela.appendChild(linha);
+    });
+}
+    function atualizarRanking(){
+    fetch(`/quiz/atualizarRanking`, {
+        method: "GET",
+        })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+               console.log("Ranking atualizado com sucesso...");
+                return resposta.json(); 
+                // finalizarAguardar();
+            } else {
+                throw "Houve um erro ao tentar atualizar ranking";
+            }
+        })
+        .then(dados => {
+            console.log("Dados do ranking recebidos:", dados);
+            preencherTabelaRanking(dados);
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            // finalizarAguardar();
+        });
+    }
+
+    window.onload = () => {
+        // validarSessao(); 
+        atualizarRanking();
+    }
+
+</script>
