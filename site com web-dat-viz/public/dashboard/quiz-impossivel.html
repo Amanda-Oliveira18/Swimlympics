@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz - Fácil</title>
+    <title>Quiz - Impossível</title>
     <link rel="stylesheet" href="./../css/dashboard.css" />
     <link rel="stylesheet" href="./../css/style.css" />
 </head>
@@ -21,8 +21,8 @@
             </div>
 
             <div class="btn-nav-white">
-                <a href="">
-                    <h3>Estátistica dos usuários</h3>
+                <a href="estatistica.html">
+                    <h3>Estatística dos usuários</h3>
                 </a>
             </div>
 
@@ -41,7 +41,7 @@
                 <h3>Sair</h3>
             </div>
         </div>
-    <div class="dash">
+    <div class="dash-quiz">
         <div class="voltar">
             <a href="escolha-quiz.html">←</a>
         </div>
@@ -52,7 +52,10 @@
                     <div id="quiz_container">
                         
                     </div>
+                    <div class="botoes">
                     <div class="button-quiz" id="button_quiz">
+                    </div>
+                    <div id="verificar_resp"></div>
                     </div>
                     <p id="resultado"></p>
             </div>
@@ -65,8 +68,9 @@
 <script src="../js/sessao.js"></script>
 
 <script>
-    var fkquizVar = 2
-    // window.onload = validarSessao;
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    var fkquizVar = 4;
+    window.onload = validarSessao();
 
 
     const perguntas = [
@@ -85,7 +89,7 @@
         ["Gretchen Walsh", "Katie Ledecky", "Jenny Thompson", "Torri Huske"]
     ];
 
-    const respostasCorretas = [2, 1, 2, 2, 1];
+    const gabarito = [2, 1, 2, 2, 1];
 
     const respostasMarcadas = [null, null, null, null, null]
 
@@ -93,7 +97,7 @@
 
     var indice = 0;
 
-    function construirPergunta() {
+    function criarPergunta() {
 
         quiz_container.innerHTML = `
         <div class="pergunta">
@@ -119,16 +123,17 @@
         if (indice == 0) {
             button_quiz.classList.add("sozinho");
             button_quiz.innerHTML = `
-            <button onclick="proxima()" class="avancar1">→</button>`;
+            <button onclick="proximaPergunta()" class="avancar">→</button>`;
         } else if (indice < (perguntas.length - 1)) {
             button_quiz.classList.remove("sozinho");
             button_quiz.innerHTML = `
             <button onclick="voltar()">←</button>
-            <button onclick="proxima()">→</button>`;
+            <button onclick="proximaPergunta()">→</button>`;
         } else {
-            button_quiz.classList.remove("sozinho");
             button_quiz.innerHTML = `
-            <button onclick="voltar()">←</button>
+            <button onclick="voltar()">←</button>`;
+            verificar_resp.classList.add("verificar");
+            verificar_resp.innerHTML = `
             <button onclick="verificar()">Verificar</button>`;
         }
     }
@@ -141,11 +146,11 @@
         }
     }
 
-    function proxima() {
+    function proximaPergunta() {
         salvarResposta()
         if (indice < (perguntas.length - 1)) {
             indice++
-            construirPergunta()
+            criarPergunta()
             atualizarBotoes()
         }
     }
@@ -153,36 +158,9 @@
         salvarResposta()
         if (indice > 0) {
             indice--
-            construirPergunta()
+            criarPergunta()
             atualizarBotoes()
         }
-    }
-
-    var tentativaAtual = 1
-
-    function contarTentativas() {
-        var fkusuarioVar = Number(sessionStorage.ID_USUARIO);
-
-        fetch("/quiz/listarTentativas", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                fkUsuarioServer: fkusuarioVar,
-                fkQuizServer: fkquizVar
-            }),
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.length > 0) {
-                    tentativaAtual = data[0].tentativa + 1;
-                }
-                console.log(`Tentativa atual: ${tentativaAtual}`);
-            })
-            .catch(err => {
-                console.error("Erro ao buscar tentativas:", err);
-            });
     }
 
     function verificar() {
@@ -198,7 +176,7 @@
 
 
         for (let i = 0; i < perguntas.length; i++) {
-            if (respostasMarcadas[i] === respostasCorretas[i]) {
+            if (respostasMarcadas[i] === gabarito[i]) {
                 respostasMarcadasC.push(1)
                 acertosVar++
             } else {
@@ -215,27 +193,24 @@
                 align-items: center;
                 text-align: center">
             <p>Você acertou ${acertosVar} de ${perguntas.length} perguntas.</p> <br>
-            <a href="dashboard.html"><button style="padding-right: 30px">Voltar para a dashboard</button></a>
+            <a href="dashboard.html"><button style="padding-right: 30px">Ver Dados</button></a>
         </div>`;
-        fetch("/quiz/cadastrarQuiz", {
+
+        fetch(`/quiz/gravarResultado`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                tentativaServer: tentativaAtual,
-                fkUsuarioServer: fkusuarioVar,
-                fkQuizServer: fkquizVar,
-                pontuacaoServer: acertosVar
+                fkusuarioServer: fkusuarioVar,
+                fkquizServer: fkquizVar,
+                acertosServer: acertosVar
             }),
         })
             .then(function (resposta) {
                 console.log("resposta: ", resposta);
-
                 if (resposta.ok) {
-                    cardErro.style.display = "block";
-
-                    mensagem_erro.innerHTML = "Pontuação salva com sucesso...";
+                   console.log("Pontuação salva com sucesso...");
                     // finalizarAguardar();
                 } else {
                     throw "Houve um erro ao tentar realizar o salvamento!";
@@ -249,9 +224,9 @@
         return false;
     }
 
-    construirPergunta()
-    atualizarBotoes()
-    contarTentativas();
+    criarPergunta()
+    atualizarBotoes();
+    // contarTentativas();
 
 </script>
 
