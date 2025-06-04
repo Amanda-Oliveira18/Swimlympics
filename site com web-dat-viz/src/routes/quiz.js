@@ -11,4 +11,12 @@ router.get("/atualizarRanking", function (req, res) {
   quizController.atualizarRanking(req, res);
 });
 
+router.get("/plotarGraficoPontuacao", function (req, res) {
+  quizController.plotarGraficoPontuacao(req, res);
+});
+
+router.get("/plotarGraficoAcertos", function (req, res) {
+  quizController.plotarGraficoAcertos(req, res);
+});
+
 module.exports = router;

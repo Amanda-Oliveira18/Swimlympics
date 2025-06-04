@@ -33,8 +33,40 @@ function atualizarRanking(req, res) {
   });
 }
 
+function plotarGraficoAcertos(req, res) {
+
+  quizModel.plotarGraficoAcertos().then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao atualizar o ranking: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
+function plotarGraficoPontuacao(req, res) {
+
+  quizModel.plotarGraficoPontuacao().then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao atualizar o ranking: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 
 module.exports = {
   gravarResultado,
-  atualizarRanking
+  atualizarRanking,
+  plotarGraficoAcertos,
+  plotarGraficoPontuacao
 }

@@ -24,7 +24,27 @@ function atualizarRanking(){
   return database.executar(instrucaoSql);
 }
 
+function plotarGraficoPontuacao(){
+
+  var instrucaoSql = 
+  ``;
+
+  console.log("Executando a instrução DQL : \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function plotarGraficoAcertos(){
+
+  var instrucaoSql = 
+  ``;
+
+  console.log("Executando a instrução DQL : \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   gravarResultado,
-  atualizarRanking
+  atualizarRanking,
+  plotarGraficoPontuacao,
+  plotarGraficoAcertos
 }
