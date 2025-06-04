@@ -7,6 +7,7 @@
     <title>Estatísticas</title>
     <link rel="stylesheet" href="./../css/dashboard.css" />
     <link rel="stylesheet" href="./../css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -59,8 +60,10 @@
                         </tr>
                     </table>
                 </div>
-                <div id="grafico-acompanhamento">
-
+                <div class="titulo-grafico"><span>Comparação do desempenho dos usuários com base em se Acompanham ou não a natação</span></div>
+                <div id="grafico-acompanhamento" class="grafico-acompanhamento">
+                <div class="barras1"><canvas id="myChart1"></canvas></div>
+                <div class="barras2"><canvas id="myChart2"></canvas></div>           
                 </div>
             </div>
         </div>
@@ -128,4 +131,58 @@
         atualizarRanking();
     }
 
+
+    // GRAFICO DE BARRAS
+    const ctx1 = document.getElementById('myChart1');
+  
+    new Chart(ctx1, {
+      type: 'bar',
+      data: {
+        labels: ['Pontuação Média'],
+        datasets: [{
+            label: 'Acompanha',
+            backgroundColor: 'rgb(202, 168, 81)',
+            data: [600],
+        },
+        {
+            label: 'Não Acompanha',
+            backgroundColor: 'whitesmoke',
+            data: [360],
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    
+    // GRAFICO DE BARRAS
+    const ctx2 = document.getElementById('myChart2');
+  
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['Média de acertos'],
+        datasets: [{
+            label: 'Acompanha',
+            backgroundColor: 'rgb(202, 168, 81)',
+            data: [16],
+        },
+        {
+            label: 'Não Acompanha',
+            backgroundColor: 'whitesmoke',
+            data: [10],
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
 </script>

@@ -371,3 +371,37 @@ table th{
   border-bottom: 2px solid black;
   padding: 5px;
 }
+  .grafico-acompanhamento{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 89%;
+    height: 350px;
+    margin: auto;
+  }
+
+.barras1{
+  justify-self: center;
+  box-shadow: 0px 8px 16px goldenrod;
+  /* border: 2px solid whitesmoke; */
+  height: 250px;
+  width: 500px;
+  background-image: url(../assets/imgs/imagem-fundo.png);
+  border-radius: 4px;
+}
+
+.barras2{
+  justify-self: center;
+  box-shadow: 0px 8px 12px goldenrod;
+  height: 250px;
+  width: 500px;
+  background-image: url(../assets/imgs/imagem-fundo.png);
+  border-radius: 4px;
+}
+
+.titulo-grafico span{
+  font-weight: 800;
+  font-size: 24px;
+  color: whitesmoke;
+}
+
