@@ -4,8 +4,9 @@ function gravarResultado(req, res) {
   var fkusuario = req.body.fkusuarioServer;
   var fkquiz = req.body.fkquizServer;
   var acertos = req.body.acertosServer;
+  var pontuacao = req.body.pontuacaoServer;
 
-  quizModel.gravarResultado(fkquiz, fkusuario, acertos).then((resultado) => {
+  quizModel.gravarResultado(fkquiz, fkusuario, acertos, pontuacao).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -33,40 +34,8 @@ function atualizarRanking(req, res) {
   });
 }
 
-function plotarGraficoAcertos(req, res) {
-
-  quizModel.plotarGraficoAcertos().then((resultado) => {
-    if (resultado.length > 0) {
-      res.status(200).json(resultado);
-    } else {
-      res.status(204).json([]);
-    }
-  }).catch(function (erro) {
-    console.log(erro);
-    console.log("Houve um erro ao atualizar o ranking: ", erro.sqlMessage);
-    res.status(500).json(erro.sqlMessage);
-  });
-}
-
-function plotarGraficoPontuacao(req, res) {
-
-  quizModel.plotarGraficoPontuacao().then((resultado) => {
-    if (resultado.length > 0) {
-      res.status(200).json(resultado);
-    } else {
-      res.status(204).json([]);
-    }
-  }).catch(function (erro) {
-    console.log(erro);
-    console.log("Houve um erro ao atualizar o ranking: ", erro.sqlMessage);
-    res.status(500).json(erro.sqlMessage);
-  });
-}
-
 
 module.exports = {
   gravarResultado,
-  atualizarRanking,
-  plotarGraficoAcertos,
-  plotarGraficoPontuacao
+  atualizarRanking
 }
