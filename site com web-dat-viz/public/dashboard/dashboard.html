@@ -65,7 +65,18 @@
         </div>
 
         <div class="dash">
-
+        <div class="estatistica-individual">    
+            <span>Análise do seu desempenho nos quizzes</span>
+        </div>
+        <div class="graficos-section">
+            <div class="container">
+                <div id="grafico-desempenho" class="grafico-desempenho">
+                <div class="linhas"><canvas id="myChart1"></canvas></div>
+            </div>
+            <div class="aviso"><span>*Os dados acima mostram a pontuação obtida com a data e horário de realização de um quiz</span></div>
+            <div id="status"></div>
+            </div>
+        </div>
         </div>
     </div>
 
@@ -77,7 +88,60 @@
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    // window.onload = validarSessao;
+    
+    function plotarGraficoIndividual(fkusuario){
+        var fkusuario = Number(sessionStorage.ID_USUARIO);
+        fetch(`/grafico/plotarGraficoIndividual/${fkusuario}`)
+            .then(res => res.json())
+            .then(dados => {
+                const datas = [];
+                const pontuacao = [];
 
+            for (let i = 0; i < dados.length; i++) {
+                datas.push(dados[i]['data_realização']);
+                pontuacao.push(dados[i].pontuacao);
+
+                console.log(pontuacao)
+                console.log(datas)
+            }
+            // GRAFICO DE BARRAS
+            const ctx1 = document.getElementById('myChart1');
+        
+            new Chart(ctx1, {
+                    type: "line",
+                    data: {
+                    labels: datas,
+                    datasets: [{
+                        label: "Pontuação",
+                        data: pontuacao,
+                        borderColor: "whitesmoke"
+                    }]
+                    },
+            options: {
+                color: 'rgb(255,255,255)',
+                scales: {
+                y: {
+                    ticks: {
+                        color:'rgb(255,255,255)'
+                    },
+                    beginAtZero: true,
+                    grid: {color: 'goldenrod'}
+        
+                },
+                x: {
+                    ticks: {
+                        color:'rgb(255,255,255)'
+                    },
+                    grid: {color: 'transparent'}
+                }
+                }   
+            }
+            });
+        });
+    }
+    window.onload = () => {
+        validarSessao(); 
+        plotarGraficoIndividual();
+    }
 
 </script>

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estatísticas</title>
     <link rel="stylesheet" href="./../css/dashboard.css" />
-    <link rel="stylesheet" href="./../css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
@@ -78,7 +77,7 @@
 
 
     function preencherTabelaRanking(dados) {
-    const tabela = document.getElementById("tabelaRanking");
+    var tabela = document.getElementById("tabelaRanking");
 
     tabela.innerHTML = `
         <tr>
@@ -89,8 +88,11 @@
         </tr>
     `;
 
-    dados.forEach(item => {
+    for (let i = 0; i < dados.length; i++) {
+        const item = dados[i];
         const linha = document.createElement("tr");
+
+        if(item.pontuacaoTotal == null) item.pontuacaoTotal = `Ainda sem informação`;
 
         linha.innerHTML = `
             <td>${item.usuario}</td>
@@ -100,7 +102,7 @@
         `;
 
         tabela.appendChild(linha);
-    });
+    }
 }
     function atualizarRanking(){
     fetch(`/quiz/atualizarRanking`, {
@@ -111,7 +113,6 @@
             if (resposta.ok) {
                console.log("Ranking atualizado com sucesso...");
                 return resposta.json(); 
-                // finalizarAguardar();
             } else {
                 throw "Houve um erro ao tentar atualizar ranking";
             }
@@ -122,67 +123,125 @@
         })
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            // finalizarAguardar();
+        });
+    }
+ 
+
+    function plotarGraficoPontuacao() {
+        fetch("/grafico/plotarGraficoPontuacao")
+            .then(res => res.json())
+            .then(dados => {
+                var acompanha = 0;
+                var nao_acompanha = 0;
+
+            for (let i = 0; i < dados.length; i++) {
+                const dado = dados[i];
+
+                if (dado.acompanha_natacao == "sim") {
+                    acompanha = dado.media_da_pontuacao;
+                } else if (dado.acompanha_natacao == "não") {
+                    nao_acompanha = dado.media_da_pontuacao;
+                }
+            }
+            // GRAFICO DE BARRAS
+            const ctx1 = document.getElementById('myChart1');
+        
+            new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Pontuação Média'],
+                datasets: [{
+                    label: 'Acompanha',
+                    backgroundColor: 'rgb(202, 168, 81)',
+                    data: [acompanha]
+                },
+                {
+                    label: 'Não Acompanha',
+                    backgroundColor: 'whitesmoke',
+                    data: [nao_acompanha]
+                }]
+            },
+            options: {
+                color: 'rgb(255,255,255)',
+                scales: {
+                y: {
+                    ticks: {
+                        color:'rgb(255,255,255)'
+                    },
+                    beginAtZero: true,
+                    grid: {color: 'rgb(255,255,255)'}
+        
+                },
+                x: {
+                    grid: {color: 'rgb(255,255,255)'}
+                }
+                }   
+            }
+            });
         });
     }
 
-    window.onload = () => {
-        // validarSessao(); 
-        atualizarRanking();
+
+    function plotarGraficoAcertos() {
+        fetch("/grafico/plotarGraficoAcertos")
+            .then(res => res.json())
+            .then(dados => {
+                var acompanha = 0;
+                var nao_acompanha = 0;
+
+            for (let i = 0; i < dados.length; i++) {
+                const dado = dados[i];
+
+                if (dado.acompanha_natacao == "sim") {
+                    acompanha = dado.media_acertos;
+                } else if (dado.acompanha_natacao == "não") {
+                    nao_acompanha = dado.media_acertos;
+                }
+            }
+        
+            // GRAFICO DE BARRAS
+            const ctx2 = document.getElementById('myChart2');
+        
+            new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Média de acertos'],
+                datasets: [{
+                    label: 'Acompanha',
+                    backgroundColor: 'rgb(202, 168, 81)',
+                    data: [acompanha]
+                },
+                {
+                    label: 'Não Acompanha',
+                    backgroundColor: 'whitesmoke',
+                    data: [nao_acompanha]
+                }]
+            },
+            options: {
+                color: 'rgb(255,255,255)',
+                scales: {
+                y: {
+                    ticks: {
+                        color:'rgb(255,255,255)'
+                    },
+                    beginAtZero: true,
+                    grid: {color: 'rgb(255,255,255)'}
+                },
+                x: {
+                    grid: {color: 'rgb(255,255,255)'}
+                }
+                }
+            },
+            });
+        });
     }
 
 
-    // GRAFICO DE BARRAS
-    const ctx1 = document.getElementById('myChart1');
-  
-    new Chart(ctx1, {
-      type: 'bar',
-      data: {
-        labels: ['Pontuação Média'],
-        datasets: [{
-            label: 'Acompanha',
-            backgroundColor: 'rgb(202, 168, 81)',
-            data: [600],
-        },
-        {
-            label: 'Não Acompanha',
-            backgroundColor: 'whitesmoke',
-            data: [360],
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-    
-    // GRAFICO DE BARRAS
-    const ctx2 = document.getElementById('myChart2');
-  
-    new Chart(ctx2, {
-      type: 'bar',
-      data: {
-        labels: ['Média de acertos'],
-        datasets: [{
-            label: 'Acompanha',
-            backgroundColor: 'rgb(202, 168, 81)',
-            data: [16],
-        },
-        {
-            label: 'Não Acompanha',
-            backgroundColor: 'whitesmoke',
-            data: [10],
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+
+    window.onload = () => {
+        validarSessao(); 
+        atualizarRanking();
+        plotarGraficoPontuacao();
+        plotarGraficoAcertos();
+    }
 </script>
