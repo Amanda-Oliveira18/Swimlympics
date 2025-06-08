@@ -49,13 +49,10 @@
         <div class="container">
             <div id="quiz" class="quiz-section-card">
                     <h2>Quiz - Nível Impossível</h2>
-                    <div id="quiz_container">
-                        
-                    </div>
+                    <div id="quiz_container"></div>
                     <div class="botoes">
-                    <div class="button-quiz" id="button_quiz">
-                    </div>
-                    <div id="verificar_resp"></div>
+                        <div class="seta" id="setas"></div>
+                        <div id="verificar_resp"></div>
                     </div>
                     <p id="resultado"></p>
             </div>
@@ -91,9 +88,9 @@
 
     const gabarito = [2, 1, 2, 2, 1];
 
-    const respostasMarcadas = [null, null, null, null, null]
+    const respostasMarcadas = [null, null, null, null, null];
 
-    const respostasMarcadasC = []
+    const respostasMarcadasC = [];
 
     var indice = 0;
 
@@ -119,18 +116,18 @@
     }
 
     function atualizarBotoes() {
-        button_quiz.innerHTML = '';
+        setas.innerHTML = '';
         if (indice == 0) {
-            button_quiz.classList.add("sozinho");
-            button_quiz.innerHTML = `
+            setas.classList.add("sozinho");
+            setas.innerHTML = `
             <button onclick="proximaPergunta()" class="avancar">→</button>`;
         } else if (indice < (perguntas.length - 1)) {
-            button_quiz.classList.remove("sozinho");
-            button_quiz.innerHTML = `
+            setas.classList.remove("sozinho");
+            setas.innerHTML = `
             <button onclick="voltar()">←</button>
             <button onclick="proximaPergunta()">→</button>`;
         } else {
-            button_quiz.innerHTML = `
+            setas.innerHTML = `
             <button onclick="voltar()">←</button>`;
             verificar_resp.classList.add("verificar");
             verificar_resp.innerHTML = `
@@ -183,17 +180,18 @@
                 respostasMarcadasC.push(0)
             }
         }
+        var pontuacaoVar = acertosVar * 50;
 
         console.log(respostasMarcadas)
         console.log(acertosVar)
-        document.getElementById("resultado").innerHTML = `
+        resultado.innerHTML = `
         <div style="display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 text-align: center">
             <p>Você acertou ${acertosVar} de ${perguntas.length} perguntas.</p> <br>
-            <a href="dashboard.html"><button style="padding-right: 30px">Ver Dados</button></a>
+            <a href="dashboard.html"><button class = "ver-dados">Ver Dados</button></a>
         </div>`;
 
         fetch(`/quiz/gravarResultado`, {
@@ -204,16 +202,17 @@
             body: JSON.stringify({
                 fkusuarioServer: fkusuarioVar,
                 fkquizServer: fkquizVar,
-                acertosServer: acertosVar
+                acertosServer: acertosVar,
+                pontuacaoServer: pontuacaoVar
             }),
         })
             .then(function (resposta) {
                 console.log("resposta: ", resposta);
+
                 if (resposta.ok) {
                    console.log("Pontuação salva com sucesso...");
-                    // finalizarAguardar();
                 } else {
-                    throw "Houve um erro ao tentar realizar o salvamento!";
+                    throw "Houve um erro ao tentar salvar!";
                 }
             })
             .catch(function (resposta) {
@@ -224,10 +223,8 @@
         return false;
     }
 
-    criarPergunta()
+    criarPergunta();
     atualizarBotoes();
-    // contarTentativas();
-
 </script>
 
 </html>
