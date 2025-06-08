@@ -290,13 +290,13 @@ body {
   background-color: rgb(232, 232, 168);
 }
 
-.button-quiz {
+.seta {
   display: flex;
   width: 100%;
   justify-content: space-around;
 }
 
-.button-quiz button {
+.seta button {
   display: flex;
   background-color:transparent;
   color: black;
@@ -307,7 +307,7 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.button-quiz.sozinho {
+.seta.sozinho {
   justify-content: center;
 }
 .verificar button{
@@ -326,6 +326,13 @@ body {
   font-size: 18px;
   color: whitesmoke;
   font-weight: bold;
+}
+
+.ver-dados{
+  padding: 8px;
+  width: 90px;
+  border: 0;
+  border-radius: 10px;
 }
 
 /* Fiz quiz */
@@ -371,31 +378,32 @@ table th{
   border-bottom: 2px solid black;
   padding: 5px;
 }
-  .grafico-acompanhamento{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 89%;
-    height: 350px;
-    margin: auto;
-  }
+.grafico-acompanhamento{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 89%;
+  height: 350px;
+  margin: auto;
+}
 
 .barras1{
   justify-self: center;
+  padding: 8px;
   box-shadow: 0px 8px 16px goldenrod;
-  /* border: 2px solid whitesmoke; */
   height: 250px;
   width: 500px;
-  background-image: url(../assets/imgs/imagem-fundo.png);
+  background-color: transparent;
   border-radius: 4px;
 }
 
 .barras2{
   justify-self: center;
   box-shadow: 0px 8px 12px goldenrod;
+  padding: 8px;
   height: 250px;
   width: 500px;
-  background-image: url(../assets/imgs/imagem-fundo.png);
+  background-color: transparent;
   border-radius: 4px;
 }
 
@@ -405,3 +413,50 @@ table th{
   color: whitesmoke;
 }
 
+/*PÁGINA SEUS DADOS*/
+.dash .estatistica-individual{
+  margin-top: 115px;
+  justify-self: center;
+  margin-bottom: 20px;
+}
+.estatistica-individual span{
+  font-weight: 800;
+  font-size: 30px;
+  color: whitesmoke;
+}
+.linhas{
+  margin-top: 10px;
+  justify-self: center;
+  padding: 8px;
+  box-shadow: 0px 8px 16px goldenrod;
+  height: 350px;
+  width: 700px;
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+.graficos-section .container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 32px;
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+.grafico-desempenho{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 89%;
+  height: 350px;
+  margin: auto;
+}
+
+.container .aviso span{
+  color: white;
+}
+.aviso{
+  margin-top: 15px;
+}

@@ -592,6 +592,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 90%;
 }
 
 /* FIM SOBRE */
@@ -611,3 +612,111 @@ input {
 /*FIM DA PAGINA HISTORIA*/
 
 
+.conteudo-sobre{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+}
+.nadador{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.nadador p{
+  width: 70%;
+  margin-top: 100px;
+}
+
+.nadador .fotinha {
+  width: 300px;         
+  height: 300px;
+  object-fit: cover;    
+  border-radius: 50%;  
+  border: 3px solid goldenrod; 
+}
+
+
+/*RECORDES*/
+.container .titulo-recordes{
+  margin-top: 20px;
+  align-self: center;
+}
+
+.sobre .container .mundiais{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 32px;
+  width: 100%;
+  padding-bottom: 30px;
+}
+#mundial-masc{
+  align-self: center;
+}
+
+#mundial-fem{
+  align-self: center;
+}
+
+#mundial-misto{
+  align-self: center;
+}
+
+table{
+  color: goldenrod;
+  border: 0;
+  margin-top: 25px;
+  justify-self: center;
+  height: 80%;
+  width: 100%;
+  font-size: 22px;
+  border: 2px solid goldenrod;
+}
+
+table caption{
+  color: whitesmoke;
+  font-weight: 800;
+}
+
+table th{
+  width: 180px;
+  background-color: goldenrod;
+  color: whitesmoke; 
+  padding: 5px;
+}
+.sobre .container .olimpicos{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 32px;
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+#olimpiadas-nado-livre{
+  align-self: center;
+}
+#olimpiadas-costas{
+  align-self: center;
+}
+#olimpiadas-peito{
+  align-self: center;
+}
+#olimpiadas-borbo{
+  align-self: center;
+}
+#olimpiadas-medley{
+  align-self: center;
+}
+#olimpiadas-rev-livre{
+  align-self: center;
+}
+#olimpiadas-rev-medley{
+  align-self: center;
+}
