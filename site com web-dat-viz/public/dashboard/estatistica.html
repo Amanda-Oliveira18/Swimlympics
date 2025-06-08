@@ -89,16 +89,16 @@
     `;
 
     for (let i = 0; i < dados.length; i++) {
-        const item = dados[i];
+        const dado = dados[i];
         const linha = document.createElement("tr");
 
-        if(item.pontuacaoTotal == null) item.pontuacaoTotal = `Ainda sem informação`;
+        if(dado.pontuacaoTotal == null) dado.pontuacaoTotal = `Ainda sem informação`;
 
         linha.innerHTML = `
-            <td>${item.usuario}</td>
-            <td>${item.acompanha_natacao}</td>
-            <td>${item.quizzesRespondidos}</td>
-            <td>${item.pontuacaoTotal}</td>
+            <td>${dado.usuario}</td>
+            <td>${dado.acompanha_natacao}</td>
+            <td>${dado.quizzesRespondidos}</td>
+            <td>${dado.pontuacaoTotal}</td>
         `;
 
         tabela.appendChild(linha);
