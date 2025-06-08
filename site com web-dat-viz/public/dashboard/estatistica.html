@@ -77,33 +77,33 @@
 
 
     function preencherTabelaRanking(dados) {
-    var tabela = document.getElementById("tabelaRanking");
+        var tabela = document.getElementById("tabelaRanking");
 
-    tabela.innerHTML = `
-        <tr>
-            <th>Usuário</th>
-            <th>Acompanha natação</th>
-            <th>Quizzes respondidos</th>
-            <th>Pontuação Total</th>
-        </tr>
-    `;
-
-    for (let i = 0; i < dados.length; i++) {
-        const dado = dados[i];
-        const linha = document.createElement("tr");
-
-        if(dado.pontuacaoTotal == null) dado.pontuacaoTotal = `Ainda sem informação`;
-
-        linha.innerHTML = `
-            <td>${dado.usuario}</td>
-            <td>${dado.acompanha_natacao}</td>
-            <td>${dado.quizzesRespondidos}</td>
-            <td>${dado.pontuacaoTotal}</td>
+        tabela.innerHTML = `
+            <tr>
+                <th>Usuário</th>
+                <th>Acompanha natação</th>
+                <th>Quizzes respondidos</th>
+                <th>Pontuação Total</th>
+            </tr>
         `;
 
-        tabela.appendChild(linha);
+        for (let i = 0; i < dados.length; i++) {
+            const dado = dados[i];
+            const linha = document.createElement("tr");
+
+            if(dado.pontuacaoTotal == null) dado.pontuacaoTotal = `Ainda sem informação`;
+
+            linha.innerHTML = `
+                <td>${dado.usuario}</td>
+                <td>${dado.acompanha_natacao}</td>
+                <td>${dado.quizzesRespondidos}</td>
+                <td>${dado.pontuacaoTotal}</td>
+            `;
+
+            tabela.appendChild(linha);
+        }
     }
-}
     function atualizarRanking(){
     fetch(`/quiz/atualizarRanking`, {
         method: "GET",
